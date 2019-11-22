@@ -34,7 +34,14 @@ const revealDefaults = {
 
 import config from './.reveal.config'
 
-let { title, description } = {
+let {
+  title,
+  description,
+  colophonImage,
+  colophonAlt,
+  colophonURL,
+  colophonShortURL
+} = {
   ...revealDefaults,
   ...require('./package.json'),
   ...config
@@ -262,6 +269,10 @@ task('content', () => {
     .pipe(replace(/{{slides}}/, content))
     .pipe(replace(/{{title}}/, title))
     .pipe(replace(/{{description}}/, description))
+    .pipe(replace(/{{colophonImage}}/, colophonImage))
+    .pipe(replace(/{{colophonAlt}}/, colophonAlt))
+    .pipe(replace(/{{colophonURL}}/, colophonURL))
+    .pipe(replace(/{{colophonShortURL}}/, colophonShortURL))
     .pipe(replace(/<li>/gi, '<li class="fragment">'))
     .pipe(gulpif(PROD, replace(/style.css/, 'style.min.css')))
     .pipe(gulpif(PROD, replace(/index.js/, 'index.min.js')))
