@@ -10,14 +10,90 @@
 @import "css/theme/template/settings";
 // ---------------------------------------------
 
-// Override theme settings (see ../template/settings.scss)
-$mainColor: #ececec;
-$headingColor: mix(#e04e39, $mainColor, 75%);
+$-primaryColor: #e04e39;
+$-secondaryColor: #1e719b;
 
-$backgroundColor: #131313;
-$backgroundColorAlt: rgba($headingColor, .25);
-$shadowColor: #2c3e50;
-$shadowColorAlt: #e04e39;
+// Light Colors
+$-mainColor: #131313;
+$-headingColor: mix($-primaryColor, $-mainColor, 75%);
+
+$-backgroundColor: #ececec;
+$-backgroundColorAlt: rgba($-headingColor, .25);
+$-shadowColor: darken($-secondaryColor, 20%);
+$-shadowColorAlt: $-primaryColor;
+
+$-linkColor: $-secondaryColor;
+$-linkColorHover: darken($-linkColor, 10%);
+$-selectionBackgroundColor: lighten($-linkColor, 20%);
+
+$-accentColor: mix($-headingColor, $-mainColor, 45%);
+$-codeColor: mix($-shadowColor, $-mainColor, 25%);
+
+//Dark Colors
+$-mainColor--dark: #ececec;
+$-headingColor--dark: mix($-primaryColor, $-mainColor--dark, 75%);
+
+$-backgroundColor--dark: #131313;
+$-backgroundColorAlt--dark: rgba($-headingColor--dark, .25);
+$-shadowColor--dark: darken($-secondaryColor, 20%);
+$-shadowColorAlt--dark: $-primaryColor;
+
+$-linkColor--dark: lighten($-secondaryColor, 30%);
+$-linkColorHover--dark: lighten($-linkColor--dark, 10%);
+$-selectionBackgroundColor--dark: lighten($-linkColor--dark, 20%);
+
+$-accentColor--dark: mix($-headingColor--dark, $-mainColor--dark, 45%);
+$-codeColor--dark: mix($-shadowColor--dark, $-mainColor--dark, 25%);
+
+:root {
+  --mainColor: #{$-mainColor};
+  --headingColor: #{$-headingColor};
+
+  --backgroundColor: #{$-backgroundColor};
+  --backgroundColorAlt: #{$-backgroundColorAlt};
+  --shadowColor: #{$-shadowColor};
+  --shadowColorAlt: #{$-shadowColorAlt};
+
+  --linkColor: #{$-linkColor};
+  --linkColorHover: #{$-linkColorHover};
+  --selectionBackgroundColor: #{$-selectionBackgroundColor};
+
+  --accentColor: #{$-accentColor};
+  --codeColor: #{$-codeColor};
+
+  @media (prefers-color-scheme: dark) {
+    --mainColor: #{$-mainColor--dark};
+    --headingColor: #{$-headingColor--dark};
+
+    --backgroundColor: #{$-backgroundColor--dark};
+    --backgroundColorAlt: #{$-backgroundColorAlt--dark};
+    --shadowColor: #{$-shadowColor--dark};
+    --shadowColorAlt: #{$-shadowColorAlt--dark};
+
+    --linkColor: #{$-linkColor--dark};
+    --linkColorHover: #{$-linkColorHover--dark};
+    --selectionBackgroundColor: #{$-selectionBackgroundColor--dark};
+
+    --accentColor: #{$-accentColor--dark};
+    --codeColor: #{$-codeColor--dark};
+  }
+}
+
+// Override theme settings (see ../template/settings.scss)
+$mainColor: #{var(--mainColor)};
+$headingColor: #{var(--headingColor)};
+
+$backgroundColor: #{var(--backgroundColor)};
+$backgroundColorAlt: #{var(--backgroundColorAlt)};
+$shadowColor: #{var(--shadowColor)};
+$shadowColorAlt: #{var(--shadowColorAlt)};
+
+$linkColor: $-linkColor;
+$linkColorHover: #{var(--linkColorHover)};
+$selectionBackgroundColor: #{var(--selectionBackgroundColor)};
+
+$accentColor: #{var(--accentColor)};
+$codeColor: #{var(--codeColor)};
 
 $mainFontSize: 2rem;
 $mainFont: $default-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -27,9 +103,6 @@ $headingTextShadow: none;
 $headingLetterSpacing: normal;
 $headingTextTransform: uppercase;
 $headingFontWeight: 700;
-$linkColor: lighten($shadowColor, 30%);
-$linkColorHover: lighten($shadowColorAlt, 20%);
-$selectionBackgroundColor: lighten($linkColor, 20%);
 
 $heading1Size: 2em;
 $heading2Size: 1.75em;
@@ -43,16 +116,13 @@ $fontWeightBold: 700;
 $blockMargin: $mainFontSize / 1.5;
 $headingMargin: 0 0 $blockMargin;
 
-$accentColor: mix($headingColor, $mainColor, 45%);
-$codeColor: mix($shadowColor, $mainColor, 25%);
-
 * {
   font-variation-settings:
     "MONO" var(--font-mono, 0),
     "CASL" var(--font-casl, 0),
     "wght" var(--font-wght, #{$fontWeightLight}),
     "slnt" var(--font-slnt, 0),
-    "ital" var(--font-ital, 0);
+    "ital" var(--font-ital, .5);
 }
 
 section.has-light-background {
@@ -216,6 +286,8 @@ body {
   }
 
   code {
+    --font-mono: 1;
+
     font-family: $codeFont;
     color: $codeColor;
     font-weight: 400;
@@ -282,21 +354,6 @@ body {
 
   .t-bold {
     --font-wght: #{$fontWeightBold};
-  }
-
-  .striped {
-    padding: .125em;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    background-image: repeating-linear-gradient(
-      45deg,
-      mix($backgroundColor, $shadowColor, 61.8%) 0,
-      mix($backgroundColor, $shadowColor, 61.8%) 10px,
-      $backgroundColor 10px,
-      $backgroundColor 20px
-    );
   }
 
   .center {
