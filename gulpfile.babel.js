@@ -268,6 +268,7 @@ task('content', () => {
   return src('./index.html')
     .pipe(replace(/{{slides}}/gi, content))
     .pipe(replace(/{{title}}/gi, title))
+    .pipe(replace(/{{subtitle}}/gi, subtitle))
     .pipe(replace(/{{description}}/gi, description))
     .pipe(replace(/{{colophonImage}}/gi, colophonImage))
     .pipe(replace(/{{colophonAlt}}/gi, colophonAlt))
